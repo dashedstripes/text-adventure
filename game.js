@@ -57,6 +57,8 @@ function Game() {
 
     if(typeof inputMap[input] == 'function') {
       inputMap[input]()
+    }else {
+      console.log('Command not found.')
     }
   }
   
@@ -67,6 +69,8 @@ function Game() {
 
     if(typeof inputMap[input] == 'function') {
       inputMap[input]()
+    }else {
+      console.log('You are in combat, some commands will not work until you run away.')
     }
   }
 
