@@ -32,10 +32,10 @@ function Game() {
         running = false
       }else {
         if(this.isCombat) {
-          console.log('****** COMBAT ******')
           this.parseCombatInput(input)
+        }else {
+          this.parseInput(input)
         }
-        this.parseInput(input)
       }
     }
 
@@ -57,13 +57,17 @@ function Game() {
 
     if(typeof inputMap[input] == 'function') {
       inputMap[input]()
-    }else {
-      console.log('Command not found.')
     }
   }
-
+  
   this.parseCombatInput = (input) => {
-    
+    let inputMap = {
+      r: this.setCombat(false)
+    }
+
+    if(typeof inputMap[input] == 'function') {
+      inputMap[input]()
+    }
   }
 
   this.move = (direction) => {
@@ -100,7 +104,12 @@ function Game() {
   }
 
   this.setCombat = (isCombat) => {
-    this.isCombat = isCombat
+    return () => {
+      this.isCombat = isCombat
+      if(this.isCombat == false) {
+        console.log('You ran away...')
+      }
+    }
   }
 
 }
