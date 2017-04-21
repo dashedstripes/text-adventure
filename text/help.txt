@@ -1,0 +1,15 @@
+Key commands:
+
+h: Help
+q: Quit
+e: Explore
+m: Map
+l: Current location
+s: Stats
+
+Movement:
+
+mn: Move north
+ms: Move south
+me: Move east
+mw: Move west
