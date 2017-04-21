@@ -68,10 +68,10 @@ function Game() {
           this.currentLocation = checker()
           console.log(`You move ${direction} to ${this.currentLocation.name}...`)
         }else {
-          console.log(`There is nothing to the ${direction}`)
+          console.log(`There is nothing to the ${direction}.`)
         }
       }else {
-        console.log(new Error('checker is not a function'))
+        console.log(new Error('Error parsing movement direction!'))
       }
     }
   }
