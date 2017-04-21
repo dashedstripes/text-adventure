@@ -1,13 +1,23 @@
+let Enemy = require('./enemy')
+
 function Story() {
 
-  this.newEvent = (location) => {
+  let goblin = new Enemy('Goblin')
+  let snake = new Enemy('Snake')
+
+  let enemies = [goblin, snake]
+
+  this.newEvent = (location, game) => {
     return () => {
       // random chance of something happening
       let chance = Math.floor(Math.random() * 100)
       
-      if(chance > 60) {
+      if(chance > 0) {
         // an attack happens
-        console.log(`An attack is about to happen in ${location.name}`)
+        game.setCombat(true)
+        let currentEnemy = enemies[Math.floor(Math.random() * (enemies.length))]
+        console.log('****** COMBAT ******')
+        console.log(`A wild ${currentEnemy.name} attacks!`)
       }else{
         // story arch
         console.log(`A new event taking place at ${location.name}!`)

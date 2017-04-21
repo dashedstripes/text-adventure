@@ -1,5 +1,13 @@
 function Enemy(name, options) {
   this.name = name
-  this.health = options.health
-  this.strength = options.strength
+  this.health = 100 || options.health
+  this.strength = 100 || options.strength
+
+  return {
+    name: this.name,
+    health: this.health,
+    strength: this.strength
+  }
 }
+
+module.exports = Enemy

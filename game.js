@@ -8,9 +8,12 @@ let Text = require('./text')
 function Game() {
 
   this.running = false
+  this.isCombat = false
+
   this.story = new Story()
   this.map = map
   this.currentLocation = map.getHome()
+  
   this.player = new Player('Adam', {
     health: 100,
     strength: 100
@@ -28,6 +31,10 @@ function Game() {
       if(input == 'q' || input == 'quit') {
         running = false
       }else {
+        if(this.isCombat) {
+          console.log('****** COMBAT ******')
+          this.parseCombatInput(input)
+        }
         this.parseInput(input)
       }
     }
@@ -41,7 +48,7 @@ function Game() {
       l: this.getLocation,
       s: this.player.stats,
       m: this.map.showMap(this.currentLocation),
-      e: this.story.newEvent(this.currentLocation),
+      e: this.story.newEvent(this.currentLocation, this),
       mn: this.move('north'),
       ms: this.move('south'),
       me: this.move('east'),
@@ -53,6 +60,10 @@ function Game() {
     }else {
       console.log('Command not found.')
     }
+  }
+
+  this.parseCombatInput = (input) => {
+    
   }
 
   this.move = (direction) => {
@@ -86,6 +97,10 @@ function Game() {
 
   this.showHelp = () => {
     console.log(Text.HELP_TEXT)
+  }
+
+  this.setCombat = (isCombat) => {
+    this.isCombat = isCombat
   }
 
 }
