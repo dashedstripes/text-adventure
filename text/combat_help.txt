@@ -3,7 +3,9 @@ Key commands:
 
 h: Help
 q: Quit
+s: Show both player and enemy stats
 
 Combat:
 
+a: Attack
 r: Run away

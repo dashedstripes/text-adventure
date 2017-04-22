@@ -3,10 +3,14 @@ function Enemy(name, options) {
   this.health = 100 || options.health
   this.strength = 10 || options.strength
 
-  return {
-    name: this.name,
-    health: this.health,
-    strength: this.strength
+  this.stats = () => {
+    console.log(`
+    ${this.name} stats
+    ----------
+    
+    Health: ${this.health}
+    Strength: ${this.strength}
+    `)
   }
 }
 

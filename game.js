@@ -64,6 +64,7 @@ function Game() {
     let inputMap = {
       h: this.showHelp,
       r: this.setCombat(false),
+      s: this.getCombatStats,
       a: this.player.attack(this.currentEnemy, this)
     }
 
@@ -114,6 +115,11 @@ function Game() {
         console.log('You ran away...')
       }
     }
+  }
+
+  this.getCombatStats = () => {
+    this.currentEnemy.stats()
+    this.player.stats()
   }
 
 }
