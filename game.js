@@ -5,29 +5,31 @@ let Player = require('./player')
 let Story = require('./story')
 let Text = require('./text')
 
-function Game() {
+class Game {
 
-  this.running = false
-  this.isCombat = false
+  constructor() {
+    this.running = false
+    this.isCombat = false
 
-  this.story = new Story()
-  this.map = map
-  this.currentLocation = map.getHome()
-  
-  this.player = new Player('Adam')
-  this.currentEnemy = {}
+    this.story = new Story()
+    this.map = map
+    this.currentLocation = map.getHome()
+    
+    this.player = new Player('Adam')
+    this.currentEnemy = {}
+  }
 
-  this.start = () => {
+  start() {
     console.log(`
       You begin in your home town, ${this.currentLocation.name}...
     `)
 
-    running = true
+    this.running = true
 
-    while(running) {
+    while(this.running) {
       let input = readlineSync.question('$: ')
       if(input == 'q' || input == 'quit') {
-        running = false
+        this.running = false
       }else {
         if(this.isCombat) {
           this.parseCombatInput(input)
@@ -40,10 +42,10 @@ function Game() {
     console.log('Game over.')
   }
 
-  this.parseInput = (input) => {
+  parseInput(input) {
     let inputMap = {
-      h: this.showHelp,
-      l: this.getLocation,
+      h: this.showHelp(),
+      l: this.getLocation(),
       s: this.player.stats,
       m: this.map.showMap(this.currentLocation),
       e: this.story.newEvent(this.currentLocation, this),
@@ -60,11 +62,11 @@ function Game() {
     }
   }
   
-  this.parseCombatInput = (input) => {
+  parseCombatInput(input) {
     let inputMap = {
-      h: this.showHelp,
+      h: this.showHelp(),
       r: this.setCombat(false),
-      s: this.getCombatStats,
+      s: this.getCombatStats(),
       a: this.player.attack(this.currentEnemy, this)
     }
 
@@ -75,7 +77,7 @@ function Game() {
     }
   }
 
-  this.move = (direction) => {
+  move(direction) {
     return () => {
       let checker = {}
       if(direction == 'north') checker = this.currentLocation.getNorth
@@ -96,19 +98,23 @@ function Game() {
     }
   }
 
-  this.getLocation = () => {
-    console.log(
-    `
-    ${this.currentLocation.name}
-    ${this.currentLocation.description}
-    `)
+  getLocation() {
+    return () => {
+      console.log(
+      `
+      ${this.currentLocation.name}
+      ${this.currentLocation.description}
+      `)
+    }
   }
 
-  this.showHelp = () => {
-    (!this.isCombat) ? console.log(Text.HELP_TEXT) : console.log(Text.COMBAT_HELP_TEXT)
+  showHelp() {
+    return () => {
+      (!this.isCombat) ? console.log(Text.HELP_TEXT) : console.log(Text.COMBAT_HELP_TEXT)
+    }
   }
 
-  this.setCombat = (isCombat) => {
+  setCombat(isCombat) {
     return () => {
       this.isCombat = isCombat
       if(this.isCombat == false) {
@@ -117,9 +123,11 @@ function Game() {
     }
   }
 
-  this.getCombatStats = () => {
-    this.currentEnemy.stats()
-    this.player.stats()
+  getCombatStats() {
+    return () => {
+      this.currentEnemy.stats()
+      this.player.stats()
+    }
   }
 
 }
