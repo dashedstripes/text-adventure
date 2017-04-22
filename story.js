@@ -3,7 +3,9 @@ let Enemy = require('./enemy')
 function Story() {
 
   let goblin = new Enemy('Goblin')
-  let snake = new Enemy('Snake')
+  let snake = new Enemy('Snake', {
+    health: 50
+  })
 
   let enemies = [goblin, snake]
 

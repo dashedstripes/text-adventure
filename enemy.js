@@ -1,8 +1,14 @@
 function Enemy(name, options) {
   this.name = name
-  this.health = 100 || options.health
-  this.strength = 10 || options.strength
-
+  
+  if(options != null) {
+    this.health = (options.health != undefined) ? options.health : 100
+    this.strength = (options.strength != undefined) ? options.strength : 10
+  }else {
+    this.health = 100
+    this.strength = 10
+  }
+  
   this.stats = () => {
     console.log(`
     ${this.name} stats
