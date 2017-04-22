@@ -14,10 +14,8 @@ function Game() {
   this.map = map
   this.currentLocation = map.getHome()
   
-  this.player = new Player('Adam', {
-    health: 100,
-    strength: 100
-  })
+  this.player = new Player('Adam')
+  this.currentEnemy = {}
 
   this.start = () => {
     console.log(`
@@ -65,7 +63,8 @@ function Game() {
   this.parseCombatInput = (input) => {
     let inputMap = {
       h: this.showHelp,
-      r: this.setCombat(false)
+      r: this.setCombat(false),
+      a: this.player.attack(this.currentEnemy, this)
     }
 
     if(typeof inputMap[input] == 'function') {

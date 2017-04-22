@@ -12,11 +12,12 @@ function Story() {
       // random chance of something happening
       let chance = Math.floor(Math.random() * 100)
       
-      if(chance > 60) {
+      if(chance > 0) {
         // an attack happens
         let currentEnemy = enemies[Math.floor(Math.random() * (enemies.length))]
         console.log('***** COMBAT MODE *****')
         console.log(`A wild ${currentEnemy.name} attacks!`)
+        game.currentEnemy = currentEnemy
         game.isCombat = true
       }else{
         // story arch
