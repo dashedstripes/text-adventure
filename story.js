@@ -17,8 +17,6 @@ function Story() {
         let currentEnemy = enemies[Math.floor(Math.random() * (enemies.length))]
         console.log('***** COMBAT MODE *****')
         console.log(`A wild ${currentEnemy.name} attacks!`)
-        console.log('\nControls:')
-        console.log('\nr: Run away\n')
         game.isCombat = true
       }else{
         // story arch
