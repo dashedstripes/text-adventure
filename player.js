@@ -15,10 +15,16 @@ function Player(name, options) {
 
   this.attack = (enemy, game) => {
     return () => {
-      enemy.health -= this.strength
+      let attackPower = Math.floor(Math.random() * this.strength)
+      enemy.health -= attackPower
+
+      if(attackPower == 10) {
+        console.log('Critical hit!')
+      }
+
       if(enemy.health <= 0) {
         console.log(`The ${enemy.name} died!`)
-        game.setCombat(false)
+        game.isCombat = false
       }else {
         console.log(`You hit the ${enemy.name}, it now has ${enemy.health} health points!`)
       }
