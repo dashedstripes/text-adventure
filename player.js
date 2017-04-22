@@ -15,19 +15,28 @@ function Player(name, options) {
 
   this.attack = (enemy, game) => {
     return () => {
-      let attackPower = Math.floor(Math.random() * this.strength)
-      enemy.health -= attackPower
+      // attack the enemy
+      let chanceOfHit = Math.floor(Math.random() * 3)
+      if(chanceOfHit >= 1) {
+        let attackPower = Math.floor(Math.random() * this.strength)
+        enemy.health -= attackPower
 
-      if(attackPower == 10) {
-        console.log('Critical hit!')
-      }
+        if(attackPower == 10) {
+          console.log('Critical hit!')
+        }
 
-      if(enemy.health <= 0) {
-        console.log(`The ${enemy.name} died!`)
-        game.isCombat = false
+        if(enemy.health <= 0) {
+          console.log(`The ${enemy.name} died!`)
+          game.isCombat = false
+        }else {
+          console.log(`You hit the ${enemy.name}, it now has ${enemy.health} health points!`)
+        }
       }else {
-        console.log(`You hit the ${enemy.name}, it now has ${enemy.health} health points!`)
+        console.log('Your attack missed!')
       }
+
+      // once the player has attacked, the enemy will have a chance to attack the player
+      enemy.attack(this, game)
     }
   }
 }
