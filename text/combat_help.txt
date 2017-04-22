@@ -1,0 +1,9 @@
+
+Key commands:
+
+h: Help
+q: Quit
+
+Combat:
+
+r: Run away
