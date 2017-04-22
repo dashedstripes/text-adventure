@@ -64,6 +64,7 @@ function Game() {
   
   this.parseCombatInput = (input) => {
     let inputMap = {
+      h: this.showHelp,
       r: this.setCombat(false)
     }
 
@@ -104,7 +105,7 @@ function Game() {
   }
 
   this.showHelp = () => {
-    console.log(Text.HELP_TEXT)
+    (!this.isCombat) ? console.log(Text.HELP_TEXT) : console.log(Text.COMBAT_HELP_TEXT)
   }
 
   this.setCombat = (isCombat) => {
