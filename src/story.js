@@ -15,15 +15,13 @@ function Story() {
       // random chance of an combat or storyline
       let chance = Math.floor(Math.random() * 100)
 
-      this.storyEvent(location, game)
-      
-      // if(chance > 60) {
-      //   // an attack happens
-      //   this.combatEvent(game)
-      // }else{
-      //   // story arch
-      //   this.storyEvent(location, game)
-      // }
+      if(chance > 60) {
+        // an attack happens
+        this.combatEvent(game)
+      }else{
+        // story arch
+        this.storyEvent(location, game)
+      }
     }
   }
 
@@ -36,9 +34,14 @@ function Story() {
   }
 
   this.storyEvent = (location, game) => {
-    console.log(`A new event taking place at ${location.name}!`)
-    //TODO: make this more random
-    this.itemEvent(location, game)
+    // Chance of different story events happening
+    let chance = Math.floor(Math.random() * 100)
+
+    if(chance > 60) {
+      this.itemEvent(location, game)
+    }else {
+      console.log(`A new event taking place at ${location.name}!`)
+    }
   }
 
   this.itemEvent = (location, game) => {
