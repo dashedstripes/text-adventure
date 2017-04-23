@@ -11,21 +11,29 @@ function Story() {
 
   this.newEvent = (location, game) => {
     return () => {
-      // random chance of something happening
+      // random chance of an combat or storyline
       let chance = Math.floor(Math.random() * 100)
       
       if(chance > 60) {
         // an attack happens
-        let currentEnemy = enemies[Math.floor(Math.random() * (enemies.length))]
-        console.log('***** COMBAT MODE *****')
-        console.log(`A wild ${currentEnemy.name} attacks!`)
-        game.currentEnemy = currentEnemy
-        game.isCombat = true
+        this.combatEvent(game)
       }else{
         // story arch
-        console.log(`A new event taking place at ${location.name}!`)
+        this.storyEvent(location, game)
       }
     }
+  }
+
+  this.combatEvent = (game) => {
+    let currentEnemy = enemies[Math.floor(Math.random() * (enemies.length))]
+    console.log('***** COMBAT MODE *****')
+    console.log(`A wild ${currentEnemy.name} attacks!`)
+    game.currentEnemy = currentEnemy
+    game.isCombat = true
+  }
+
+  this.storyEvent = (location, game) => {
+    console.log(`A new event taking place at ${location.name}!`)
   }
 }
 
