@@ -68,7 +68,8 @@ class Game {
       h: this.showHelp(),
       r: this.setCombat(false),
       s: this.getCombatStats(),
-      a: this.player.attack(this.currentEnemy, this)
+      a: this.player.attack(this.currentEnemy, this),
+      i: this.player.inventory.getItems(),
     }
 
     if(typeof inputMap[input] == 'function') {

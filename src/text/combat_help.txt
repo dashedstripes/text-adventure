@@ -4,6 +4,7 @@ Key commands:
 h: Help
 q: Quit
 s: Show both player and enemy stats
+i: Inventory
 
 Combat:
 

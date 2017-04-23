@@ -7,6 +7,7 @@ e: Explore
 m: Map
 l: Current location
 s: Stats
+i: Inventory
 
 Movement:
 
