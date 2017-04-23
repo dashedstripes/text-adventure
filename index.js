@@ -1,4 +1,4 @@
-let Game = require('./game')
+let Game = require('./src/game')
 let game = new Game()
 
 game.start()

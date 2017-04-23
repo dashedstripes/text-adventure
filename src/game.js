@@ -49,6 +49,7 @@ class Game {
       s: this.player.stats,
       m: this.map.showMap(this.currentLocation),
       e: this.story.newEvent(this.currentLocation, this),
+      i: this.player.inventory.getItems(),
       mn: this.move('north'),
       ms: this.move('south'),
       me: this.move('east'),

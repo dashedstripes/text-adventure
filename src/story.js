@@ -1,4 +1,5 @@
 let Enemy = require('./enemy')
+let Item = require('./item')
 
 function Story() {
 
@@ -13,14 +14,16 @@ function Story() {
     return () => {
       // random chance of an combat or storyline
       let chance = Math.floor(Math.random() * 100)
+
+      this.storyEvent(location, game)
       
-      if(chance > 60) {
-        // an attack happens
-        this.combatEvent(game)
-      }else{
-        // story arch
-        this.storyEvent(location, game)
-      }
+      // if(chance > 60) {
+      //   // an attack happens
+      //   this.combatEvent(game)
+      // }else{
+      //   // story arch
+      //   this.storyEvent(location, game)
+      // }
     }
   }
 
@@ -34,6 +37,18 @@ function Story() {
 
   this.storyEvent = (location, game) => {
     console.log(`A new event taking place at ${location.name}!`)
+    //TODO: make this more random
+    this.itemEvent(location, game)
+  }
+
+  this.itemEvent = (location, game) => {
+    let items = [
+      new Item('Health Tonic', { health: 10 })
+    ]
+
+    let chosenItem = items[Math.floor(Math.random() * items.length)]
+    console.log(`You found a ${chosenItem.name}`)
+    game.player.inventory.addToInventory(chosenItem)
   }
 }
 

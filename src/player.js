@@ -1,7 +1,10 @@
+let Inventory = require('./inventory')
+
 function Player(name, options) {
   this.name = name
   this.health = 100 || options.health
   this.strength = 10 || options.strength
+  this.inventory = new Inventory()
 
   this.stats = () => {
     console.log(`
