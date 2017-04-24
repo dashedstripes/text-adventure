@@ -1,32 +1,35 @@
 let Location = require('./location')
 
-function Map() {
+class Map {
 
-  let home = new Location('Wolfpine', 'Your home town.')
-  let forest = new Location('Forest')
-  let city = new Location('City')
-  let city2 = new Location('City 2')
-  let city3 = new Location('City 3')
-  let town = new Location('Town')
+  constructor() {
+    this.home = new Location('Wolfpine', 'Your home town.')
+    let forest = new Location('Forest')
+    let city = new Location('City')
+    let city2 = new Location('City 2')
+    let city3 = new Location('City 3')
+    let town = new Location('Town')
 
-  home.setNorth(forest)
-  home.setSouth(city)
-  home.setEast(town)
-  home.setWest(city3)
+    this.home.setNorth(forest)
+    this.home.setSouth(city)
+    this.home.setEast(town)
+    this.home.setWest(city3)
 
-  forest.setNorth(city2)
-  city3.setNorth(town)
+    forest.setNorth(city2)
+    city3.setNorth(town)
+  }
 
-  this.getHome = () => home
+  getHome() { return this.home }
 
-  this.showMap = (currentLocation) => {
+  showMap(currentLocation) {
     return () => {
       let map = this.createMap(currentLocation)
     }
   }
 
-  this.createMap = (node) => {
-    let top = center = bottom = ''
+  createMap(node) {
+    let top, center, bottom
+    top = center = bottom = ''
     let spacing = Array(20).join(' ')
     let divider = '----'
 
