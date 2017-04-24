@@ -43,24 +43,37 @@ class Game {
   }
 
   parseInput(input) {
-    let inputMap = {
-      h: this.showHelp(),
-      l: this.getLocation(),
-      s: this.player.stats.bind(this.player),
-      m: this.map.showMap(this.currentLocation),
-      e: this.story.newEvent(this.currentLocation, this),
-      i: this.player.inventory.getItems(),
-      mn: this.move('north'),
-      ms: this.move('south'),
-      me: this.move('east'),
-      mw: this.move('west')
+    let splitInput = []
+
+    if(input.replace(/\s/g, '').split('') != null) {
+      splitInput = input.replace(/\s/g, '').split('')
+      if(splitInput.length > 1) {
+        if(splitInput[0] == 'i') {
+          this.player.inventory.useItem(splitInput[1])
+        }
+      }else {
+        let inputMap = {
+          h: this.showHelp(),
+          l: this.getLocation(),
+          s: this.player.stats.bind(this.player),
+          m: this.map.showMap(this.currentLocation),
+          e: this.story.newEvent(this.currentLocation, this),
+          i: this.player.inventory.getItems.bind(this.player.inventory),
+          mn: this.move('north'),
+          ms: this.move('south'),
+          me: this.move('east'),
+          mw: this.move('west')
+        }
+
+        if(typeof inputMap[input] == 'function') {
+          inputMap[input]()
+        }else {
+          console.log('Command not found.')
+        }
+      }
     }
 
-    if(typeof inputMap[input] == 'function') {
-      inputMap[input]()
-    }else {
-      console.log('Command not found.')
-    }
+
   }
   
   parseCombatInput(input) {
