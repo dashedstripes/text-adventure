@@ -2,25 +2,43 @@ let Item = require('./item')
 
 class Inventory {
   constructor() {
-    this.items = []
+    this.items = [
+      new Item('Health Potion', { health: 10 }),
+      new Item('Health Potion', { health: 10 })
+    ]
   }
 
-  getItems() {
-    let selected = 0
-    let itemDisplay = ''
+  getItems(commands) {
+    if(commands.length == 1) {
+      return () => {
+        let selected = 0
+        let itemDisplay = ''
 
-    if(this.items.length > 0) {
-      this.items.map((item, index) => {
-        ;(index != this.items.length - 1) ? itemDisplay += `${index}: ${item.name}\n` : itemDisplay += `${index}: ${item.name}`
-      })
-      console.log(itemDisplay)
+        if(this.items.length > 0) {
+          this.items.map((item, index) => {
+            ;(index != this.items.length - 1) ? itemDisplay += `${index}: ${item.name}\n` : itemDisplay += `${index}: ${item.name}`
+          })
+          console.log(itemDisplay)
+        }else {
+          console.log('There is nothing in your inventory.')
+        }
+      }
     }else {
-      console.log('There is nothing in your inventory.')
+      // use item at index
+      if(commands[1] != null) {
+        return () => {
+          this.useItem(commands[1])
+        }
+      }
     }
   }
 
   useItem(index) {
-    console.log('Going to use', this.items[index].name)
+    if(this.items[index] != null) {
+      console.log('Going to use', this.items[index].name)
+    }else {
+      console.log('No item found.')
+    }
   }
 
   addToInventory(item) {

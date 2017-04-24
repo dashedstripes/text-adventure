@@ -42,22 +42,24 @@ class Game {
     console.log('Game over.')
   }
 
-  parseInput(input) {
+  parseInput(i) {
+    let input = i.split('')
+
     let inputMap = {
       h: this.showHelp(),
       l: this.getLocation(),
       s: this.player.stats.bind(this.player),
       m: this.map.showMap(this.currentLocation),
       e: this.story.newEvent(this.currentLocation, this),
-      i: this.player.inventory.getItems.bind(this.player.inventory),
+      i: this.player.inventory.getItems(input),
       mn: this.move('north'),
       ms: this.move('south'),
       me: this.move('east'),
       mw: this.move('west')
     }
 
-    if(typeof inputMap[input] == 'function') {
-      inputMap[input]()
+    if(typeof inputMap[input[0]] == 'function') {
+      inputMap[input[0]]()
     }else {
       console.log('Command not found.')
     }
