@@ -1,22 +1,11 @@
+let Entity = require('./entity')
 let Inventory = require('./inventory')
 
-class Player {
+class Player extends Entity{
 
   constructor(name, options) {
-    this.name = name
-    this.health = 100 || options.health
-    this.strength = 10 || options.strength
+    super(name, options)
     this.inventory = new Inventory()
-  }
-
-  stats() {
-    console.log(`
-    Your stats
-    ----------
-    
-    Health: ${this.health}
-    Strength: ${this.strength}
-    `)
   }
 
   attack(enemy, game) {
@@ -45,6 +34,7 @@ class Player {
       enemy.attack(this, game)
     }
   }
+  
 }
 
 module.exports = Player

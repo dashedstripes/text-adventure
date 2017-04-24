@@ -1,25 +1,6 @@
-class Enemy {
-  constructor(name, options) {
-    this.name = name
+let Entity = require('./entity')
 
-    if(options != null) {
-      this.health = (options.health != undefined) ? options.health : 100
-      this.strength = (options.strength != undefined) ? options.strength : 10
-    }else {
-      this.health = 100
-      this.strength = 10
-    }
-  }
-  
-  stats() {
-    console.log(`
-    ${this.name} stats
-    ----------
-    
-    Health: ${this.health}
-    Strength: ${this.strength}
-    `)
-  }
+class Enemy extends Entity {
 
   attack(player, game) {
     // attack the player
@@ -42,6 +23,7 @@ class Enemy {
       console.log(`${this.name} attack missed!`)
     }
   }
+
 }
 
 module.exports = Enemy
