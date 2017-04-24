@@ -1,16 +1,18 @@
 let Enemy = require('./enemy')
 let Item = require('./item')
 
-function Story() {
+class Story {
 
-  let goblin = new Enemy('Goblin')
-  let snake = new Enemy('Snake', {
-    health: 50
-  })
+  constructor() {
+    let goblin = new Enemy('Goblin')
+    let snake = new Enemy('Snake', {
+      health: 50
+    })
 
-  let enemies = [goblin, snake]
+    this.enemies = [goblin, snake]
+  }
 
-  this.newEvent = (location, game) => {
+  newEvent(location, game) {
     return () => {
       // random chance of an combat or storyline
       let chance = Math.floor(Math.random() * 100)
@@ -25,15 +27,15 @@ function Story() {
     }
   }
 
-  this.combatEvent = (game) => {
-    let currentEnemy = enemies[Math.floor(Math.random() * (enemies.length))]
+  combatEvent(game) {
+    let currentEnemy = this.enemies[Math.floor(Math.random() * (this.enemies.length))]
     console.log('***** COMBAT MODE *****')
     console.log(`A wild ${currentEnemy.name} attacks!`)
     game.currentEnemy = currentEnemy
     game.isCombat = true
   }
 
-  this.storyEvent = (location, game) => {
+  storyEvent(location, game) {
     // Chance of different story events happening
     let chance = Math.floor(Math.random() * 100)
 
@@ -44,7 +46,7 @@ function Story() {
     }
   }
 
-  this.itemEvent = (location, game) => {
+  itemEvent(location, game) {
     let items = [
       new Item('Health Tonic', { health: 10 })
     ]
