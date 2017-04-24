@@ -1,12 +1,15 @@
 let Inventory = require('./inventory')
 
-function Player(name, options) {
-  this.name = name
-  this.health = 100 || options.health
-  this.strength = 10 || options.strength
-  this.inventory = new Inventory()
+class Player {
 
-  this.stats = () => {
+  constructor(name, options) {
+    this.name = name
+    this.health = 100 || options.health
+    this.strength = 10 || options.strength
+    this.inventory = new Inventory()
+  }
+
+  stats() {
     console.log(`
     Your stats
     ----------
@@ -16,7 +19,7 @@ function Player(name, options) {
     `)
   }
 
-  this.attack = (enemy, game) => {
+  attack(enemy, game) {
     return () => {
       // attack the enemy
       let chanceOfHit = Math.floor(Math.random() * 3)

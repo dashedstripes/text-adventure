@@ -46,7 +46,7 @@ class Game {
     let inputMap = {
       h: this.showHelp(),
       l: this.getLocation(),
-      s: this.player.stats,
+      s: this.player.stats.bind(this.player),
       m: this.map.showMap(this.currentLocation),
       e: this.story.newEvent(this.currentLocation, this),
       i: this.player.inventory.getItems(),
@@ -127,7 +127,7 @@ class Game {
 
   getCombatStats() {
     return () => {
-      this.currentEnemy.stats()
+      this.currentEnemy.stats(),
       this.player.stats()
     }
   }
