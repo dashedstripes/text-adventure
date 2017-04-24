@@ -1,6 +1,6 @@
-let Entity = require('./entity')
+let Character = require('./character')
 
-class Enemy extends Entity {
+class Enemy extends Character {
 
   attack(player, game) {
     // attack the player

@@ -1,4 +1,4 @@
-class Entity {
+class Character {
   constructor(name, options) {
     this.name = name
 
@@ -23,5 +23,5 @@ class Entity {
 
 }
 
-module.exports = Entity
+module.exports = Character
 

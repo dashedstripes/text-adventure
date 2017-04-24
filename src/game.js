@@ -15,12 +15,14 @@ class Game {
     this.map = map
     this.currentLocation = map.getHome()
     
-    this.player = new Player('Adam')
+    this.player = new Player('Icocos')
     this.currentEnemy = {}
   }
 
   start() {
     console.log(`
+      You are ${this.player.name}, TODO: add some back story.
+      
       You begin in your home town, ${this.currentLocation.name}...
     `)
 

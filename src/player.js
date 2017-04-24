@@ -1,7 +1,7 @@
-let Entity = require('./entity')
+let Character = require('./character')
 let Inventory = require('./inventory')
 
-class Player extends Entity{
+class Player extends Character{
 
   constructor(name, options) {
     super(name, options)
