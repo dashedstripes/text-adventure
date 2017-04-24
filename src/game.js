@@ -52,10 +52,7 @@ class Game {
       m: this.map.showMap(this.currentLocation),
       e: this.story.newEvent(this.currentLocation, this),
       i: this.player.inventory.getItems(input),
-      mn: this.move('north'),
-      ms: this.move('south'),
-      me: this.move('east'),
-      mw: this.move('west')
+      t: this.move(input),
     }
 
     if(typeof inputMap[input[0]] == 'function') {
@@ -72,7 +69,7 @@ class Game {
       r: this.setCombat(false),
       s: this.getCombatStats(),
       a: this.player.attack(this.currentEnemy, this),
-      i: this.player.inventory.getItems.bind(this.player.inventory),
+      i: this.player.inventory.getItems(input),
     }
 
     if(typeof inputMap[input] == 'function') {
@@ -82,25 +79,39 @@ class Game {
     }
   }
 
-  move(direction) {
-    return () => {
-      let checker = {}
-      if(direction == 'north') checker = this.currentLocation.getNorth
-      if(direction == 'south') checker = this.currentLocation.getSouth
-      if(direction == 'east') checker = this.currentLocation.getEast
-      if(direction == 'west') checker = this.currentLocation.getWest
-      
-      if(typeof checker == 'function') {
-        if(checker() != null) {
-          this.currentLocation = checker()
-          console.log(`You move ${direction} to ${this.currentLocation.name}...`)
+  move(input) {
+
+    let direction = ''
+
+    if(input.length == 2) {
+
+      if(input[1] != null) {
+        if(input[1] == 'n') { direction = 'north' }
+        if(input[1] == 's') { direction = 'south' }
+        if(input[1] == 'e') { direction = 'east' }
+        if(input[1] == 'w') { direction = 'west' }
+      }
+
+      return () => {
+        let checker = {}
+        if(direction == 'north') checker = this.currentLocation.getNorth
+        if(direction == 'south') checker = this.currentLocation.getSouth
+        if(direction == 'east') checker = this.currentLocation.getEast
+        if(direction == 'west') checker = this.currentLocation.getWest
+        
+        if(typeof checker == 'function') {
+          if(checker() != null) {
+            this.currentLocation = checker()
+            console.log(`You move ${direction} to ${this.currentLocation.name}...`)
+          }else {
+            console.log(`There is nothing to the ${direction}.`)
+          }
         }else {
-          console.log(`There is nothing to the ${direction}.`)
+          console.log(new Error('Error parsing movement direction!'))
         }
-      }else {
-        console.log(new Error('Error parsing movement direction!'))
       }
     }
+
   }
 
   getLocation() {
