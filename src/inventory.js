@@ -3,10 +3,7 @@ let Item = require('./item')
 class Inventory {
   constructor(player) {
     this.player = player
-    this.items = [
-      new Item('Health Potion', { health: 10 }),
-      new Item('Health Potion', { health: 10 })
-    ]
+    this.items = []
   }
 
   getItems(commands) {
