@@ -14,7 +14,7 @@ class Story {
     return () => {
       // random chance of an combat or storyline
       let chance = Math.floor(Math.random() * 100)
-      (chance > 60) ? this.combatEvent(game) : this.storyEvent(location, game)
+      ;(chance > 60) ? this.combatEvent(game) : this.storyEvent(location, game)
     }
   }
 
