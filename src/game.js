@@ -74,8 +74,8 @@ class Game {
       i: this.player.inventory.getItems(input),
     }
 
-    if(typeof inputMap[input] == 'function') {
-      inputMap[input]()
+    if(typeof inputMap[input[0]] == 'function') {
+      inputMap[input[0]]()
     }else {
       console.log('You are in combat, some commands will not work until you run away.')
     }
