@@ -30,8 +30,10 @@ class Player extends Entity{
         console.log('Your attack missed!')
       }
 
-      // once the player has attacked, the enemy will have a chance to attack the player
-      enemy.attack(this, game)
+      if(enemy.health > 0) {
+        // once the player has attacked, the enemy will have a chance to attack the player
+        enemy.attack(this, game)
+      }
     }
   }
   
