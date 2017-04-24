@@ -1,7 +1,8 @@
 let Item = require('./item')
 
 class Inventory {
-  constructor() {
+  constructor(player) {
+    this.player = player
     this.items = [
       new Item('Health Potion', { health: 10 }),
       new Item('Health Potion', { health: 10 })
@@ -35,7 +36,9 @@ class Inventory {
 
   useItem(index) {
     if(this.items[index] != null) {
-      console.log('Going to use', this.items[index].name)
+      if(this.items[index].use(this.player)) {
+        this.removeFromInventory(index)
+      }
     }else {
       console.log('No item found.')
     }
@@ -43,6 +46,12 @@ class Inventory {
 
   addToInventory(item) {
     this.items.push(item)
+  }
+
+  removeFromInventory(index) {
+    if(index >= 0) {
+      this.items.splice(index, 1)
+    }
   }
 }
 

@@ -5,7 +5,7 @@ class Player extends Entity{
 
   constructor(name, options) {
     super(name, options)
-    this.inventory = new Inventory()
+    this.inventory = new Inventory(this)
   }
 
   attack(enemy, game) {
