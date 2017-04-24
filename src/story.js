@@ -4,10 +4,8 @@ let Item = require('./item')
 class Story {
 
   constructor() {
-    let goblin = new Enemy('Goblin')
-    let snake = new Enemy('Snake', {
-      health: 50
-    })
+    let goblin = new Enemy('Goblin', { health: 50})
+    let snake = new Enemy('Snake', { health: 30 })
 
     this.enemies = [goblin, snake]
   }

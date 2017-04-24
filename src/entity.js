@@ -1,15 +1,17 @@
-function Entity(name, options) {
-  this.name = name
+class Entity {
+  constructor(name, options) {
+    this.name = name
 
-  if(options != null) {
-    this.health = (options.health != undefined) ? options.health : 100
-    this.strength = (options.strength != undefined) ? options.strength : 10
-  }else {
-    this.health = 100
-    this.strength = 10
+    if(options != null) {
+      this.health = (options.health != undefined) ? options.health : 100
+      this.strength = (options.strength != undefined) ? options.strength : 10
+    }else {
+      this.health = 100
+      this.strength = 10
+    }
   }
   
-  this.stats = () => {
+  stats() {
     console.log(`
     ${this.name} stats
     ----------

@@ -1,15 +1,17 @@
-function Enemy(name, options) {
-  this.name = name
+class Enemy {
+  constructor(name, options) {
+    this.name = name
 
-  if(options != null) {
-    this.health = (options.health != undefined) ? options.health : 100
-    this.strength = (options.strength != undefined) ? options.strength : 10
-  }else {
-    this.health = 100
-    this.strength = 10
+    if(options != null) {
+      this.health = (options.health != undefined) ? options.health : 100
+      this.strength = (options.strength != undefined) ? options.strength : 10
+    }else {
+      this.health = 100
+      this.strength = 10
+    }
   }
   
-  this.stats = () => {
+  stats() {
     console.log(`
     ${this.name} stats
     ----------
@@ -19,7 +21,7 @@ function Enemy(name, options) {
     `)
   }
 
-  this.attack = (player, game) => {
+  attack(player, game) {
     // attack the player
     let chanceOfHit = Math.floor(Math.random() * 3)
     if(chanceOfHit >= 1) {
