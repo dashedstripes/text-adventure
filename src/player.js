@@ -13,7 +13,7 @@ class Player extends Entity{
       // attack the enemy
       let chanceOfHit = Math.floor(Math.random() * 3)
       if(chanceOfHit >= 1) {
-        let attackPower = Math.floor(Math.random() * this.strength)
+        let attackPower = Math.floor(Math.random() * this.strength) + 1
         enemy.health -= attackPower
 
         if(attackPower == 10) {
