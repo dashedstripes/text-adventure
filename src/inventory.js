@@ -2,10 +2,7 @@ let Item = require('./item')
 
 class Inventory {
   constructor() {
-    this.items = [
-      new Item('Health Tonic', { health: 10 }),
-      new Item('Health Tonic', { health: 10 })
-    ]
+    this.items = []
   }
 
   getItems() {
@@ -14,7 +11,7 @@ class Inventory {
 
     if(this.items.length > 0) {
       this.items.map((item, index) => {
-        (index != this.items.length - 1) ? itemDisplay += `${index}: ${item.name}\n` : itemDisplay += `${index}: ${item.name}`
+        ;(index != this.items.length - 1) ? itemDisplay += `${index}: ${item.name}\n` : itemDisplay += `${index}: ${item.name}`
       })
       console.log(itemDisplay)
     }else {

@@ -43,36 +43,24 @@ class Game {
   }
 
   parseInput(input) {
-    let splitInput = []
-
-    if(input.replace(/\s/g, '').split('') != null) {
-      splitInput = input.replace(/\s/g, '').split('')
-      if(splitInput.length > 1) {
-        if(splitInput[0] == 'i') {
-          this.player.inventory.useItem(splitInput[1])
-        }
-      }else {
-        let inputMap = {
-          h: this.showHelp(),
-          l: this.getLocation(),
-          s: this.player.stats.bind(this.player),
-          m: this.map.showMap(this.currentLocation),
-          e: this.story.newEvent(this.currentLocation, this),
-          i: this.player.inventory.getItems.bind(this.player.inventory),
-          mn: this.move('north'),
-          ms: this.move('south'),
-          me: this.move('east'),
-          mw: this.move('west')
-        }
-
-        if(typeof inputMap[input] == 'function') {
-          inputMap[input]()
-        }else {
-          console.log('Command not found.')
-        }
-      }
+    let inputMap = {
+      h: this.showHelp(),
+      l: this.getLocation(),
+      s: this.player.stats.bind(this.player),
+      m: this.map.showMap(this.currentLocation),
+      e: this.story.newEvent(this.currentLocation, this),
+      i: this.player.inventory.getItems.bind(this.player.inventory),
+      mn: this.move('north'),
+      ms: this.move('south'),
+      me: this.move('east'),
+      mw: this.move('west')
     }
 
+    if(typeof inputMap[input] == 'function') {
+      inputMap[input]()
+    }else {
+      console.log('Command not found.')
+    }
 
   }
   
@@ -82,7 +70,7 @@ class Game {
       r: this.setCombat(false),
       s: this.getCombatStats(),
       a: this.player.attack(this.currentEnemy, this),
-      i: this.player.inventory.getItems(),
+      i: this.player.inventory.getItems.bind(this.player.inventory),
     }
 
     if(typeof inputMap[input] == 'function') {
