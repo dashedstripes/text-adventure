@@ -107,7 +107,7 @@ class Game {
             console.log(`There is nothing to the ${direction}.`)
           }
         }else {
-          console.log(new Error('Error parsing movement direction!'))
+          console.log('Invalid direction!')
         }
       }
     }
