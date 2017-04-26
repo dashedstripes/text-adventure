@@ -1,7 +1,8 @@
 class Location {
-  constructor(name, description) {
+  constructor(name, description, hasNPC) {
     this.name = name || 'Location'
     this.description = description || 'A new location'
+    this.hasNPC = hasNPC || false
 
     this.north = null
     this.south = null

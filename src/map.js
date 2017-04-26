@@ -3,12 +3,12 @@ let Location = require('./location')
 class Map {
 
   constructor() {
-    this.home = new Location('Wolfpine', 'Your home town.')
-    let forest = new Location('Forest')
-    let city = new Location('City')
-    let city2 = new Location('City 2')
-    let city3 = new Location('City 3')
-    let town = new Location('Town')
+    this.home = new Location('Wolfpine', 'Your home town.', true)
+    let forest = new Location('Forest', null, false)
+    let city = new Location('City', null, true)
+    let city2 = new Location('City 2', null, true)
+    let city3 = new Location('City 3', null, true)
+    let town = new Location('Town', null, true)
 
     this.home.setNorth(forest)
     this.home.setSouth(city)

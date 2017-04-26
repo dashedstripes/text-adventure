@@ -33,7 +33,12 @@ class Story {
     if(chance > 60) {
       this.itemEvent(location, game)
     }else {
-      console.log(`A new event taking place at ${location.name}!`)
+      if(location.hasNPC) {
+        console.log('You greet an NPC')
+      }else {
+        console.log('A passing by traveller has dropped an item, you decide to pick it up.')
+        this.itemEvent(location, game)
+      }
     }
   }
 
