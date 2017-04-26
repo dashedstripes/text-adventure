@@ -1,5 +1,6 @@
 let Enemy = require('./enemy')
 let Item = require('./item')
+let NPC = require('./npc')
 
 class Story {
 
@@ -8,6 +9,7 @@ class Story {
     let snake = new Enemy('Snake', { health: 30 })
 
     this.enemies = [goblin, snake]
+    this.npc = new NPC()
   }
 
   newEvent(location, game) {
@@ -34,9 +36,9 @@ class Story {
       this.itemEvent(location, game)
     }else {
       if(location.hasNPC) {
-        console.log('You greet an NPC')
+        this.npc.event(location, game)
       }else {
-        console.log('A passing by traveller has dropped an item, you decide to pick it up.')
+        console.log(`You notice a traveller ahead of you in ${location.name} has dropped something, you decide to pick it up.`)
         this.itemEvent(location, game)
       }
     }
