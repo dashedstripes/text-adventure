@@ -1,8 +1,7 @@
 # Text Adventure
 
-Command line text based adventure game.
+Command line text game with multiple random events.
 
-### TODO
+## Gameplay
 
-- Create story events
-- Make it possible to be trapped by enemy and unable to run from combat
+Run the game with `node index.js`, this will put you into an interactive terminal where you can type `h`, or `help` to see all the commands for the game.
