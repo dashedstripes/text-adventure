@@ -24,6 +24,7 @@ class Game {
     this.console.log(`
     You are ${this.player.name}.
     You begin in your home town, ${this.currentLocation.name}...
+    (type 'h' for help)
     `);
 
     this.running = true
