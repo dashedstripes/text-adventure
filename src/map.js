@@ -22,15 +22,13 @@ class Map {
   getHome() { return this.home }
 
   showMap(currentLocation) {
-    return () => {
-      let map = this.createMap(currentLocation)
-    }
+    return this.createMap(currentLocation)
   }
 
   createMap(node) {
     let top, center, bottom
     top = center = bottom = ''
-    let spacing = Array(20).join(' ')
+    let spacing = Array(5).join('<span class="map-spacer">-</span>')
     let divider = '----'
 
     ;(node.getWest() != null) ? center += node.getWest().name : center += divider
@@ -55,18 +53,17 @@ class Map {
 
     function combineSpace() {
       if(node.getWest() != null) {
-        return (Array(node.getWest().name.length + 1).join(' ') + spacing)
+        return (Array(node.getWest().name.length + 1).join('<span class="map-spacer">-</span>') + spacing)
       }else {
-        return (Array(divider.length + 1).join(' ') + spacing)
+        return (Array(divider.length + 1).join('<span class="map-spacer">-</span>') + spacing)
       }
     }
-
-    console.log(`
+    
+    return `
     ${top}
     ${center}
     ${bottom}
-    `)
-
+    `
   }
 
 }

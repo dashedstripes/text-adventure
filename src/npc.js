@@ -12,9 +12,9 @@ class NPC {
     ]
   }
 
-  event() {
+  event(console) {
     let character = this.getCharacter()
-    console.log(`You are greeted by ${character.name} the ${character.type}!`)
+    return `You are greeted by ${character.name} the ${character.type}!`
   }
 
   getCharacter() {

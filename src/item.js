@@ -21,12 +21,10 @@ class Item {
             healthRecovered = this.options.health
             player.health += this.options.health
           }
-          console.log(`You used ${this.name} and recovered ${player.health - healthBefore} health!`)
-          return true
+          return [`You used ${this.name} and recovered ${player.health - healthBefore} health!`, true]
         }
       }else {
-        console.log('You are already at full health!')
-        return false
+        return ['You are already at full health!', false]
       }
     }
   }

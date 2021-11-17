@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://adamgray.dev/sass/style.css" rel="stylesheet" />
+  <style>
+
+    .output {
+      padding: 2rem;
+      background: #282828;
+      max-height: 500px;
+      height: 500px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .message {
+      color: #66ff66;
+      font-size: 1rem;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .message:last-child {
+      margin-bottom: 0;
+    }
+
+    .input-container {
+      position: relative;
+      color: #66ff66;
+      background: #282828;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .text-input-container {
+      width: 75%;
+    }
+
+    .input {
+      width: 100%;
+      padding: 2rem;
+      font-size: 1rem;
+      color: #66ff66;
+      background: #282828;
+      border: 0;
+      font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+      line-height: 1.6rem;
+      padding-left: 3rem;
+    }
+
+    .input:focus {
+      outline: 0;
+    }
+
+    .dollar {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 2rem;
+      color: #66ff66;
+    }
+
+    .submit-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 2rem;
+      color: #66ff66;
+      background: #282828;
+      border: 0;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+    }
+
+    .map-spacer {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body class="">
+  <nav class="container nav">
+    <a href="https://www.adamgray.dev/" class="nav-home">~/</a>
+    <div>
+      <a href="https://www.adamgray.dev/apps" class="">/apps</a>
+    </div>
+  </nav>
+  
+
+  <div class="container">
+    
+    <div>
+      <div class="output" id="output"></div>
+      <form class="input-container" id='form'>
+        <div class="text-input-container">
+          <span class="dollar">$</span>
+          <input type="text" class="input" placeholder="Enter a command" id="command" autocomplete="off"/>
+        </div>
+        <button class="submit-button">Submit</button>
+      </form>
+    </div>
+
+  </div>
+
+  <script src="/bundle.js"></script>
+  <script>
+    window.game.start();
+
+    const form = document.querySelector('#form');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const command = document.querySelector('#command');
+      game.handleEvent(command.value);
+      command.value = '';
+    })
+  </script>
+  
+</body>
+</html>

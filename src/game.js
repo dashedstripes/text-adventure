@@ -1,9 +1,8 @@
-let readlineSync = require('readline-sync')
-let Map = require('./map')
-let map = new Map
-let Player = require('./player')
-let Story = require('./story')
-let Text = require('./text')
+const Map = require('./map')
+const Player = require('./player')
+const Story = require('./story')
+const Text = require('./text')
+const Console = require('./console')
 
 class Game {
 
@@ -11,73 +10,75 @@ class Game {
     this.running = false
     this.isCombat = false
 
+    this.console = new Console()
+
     this.story = new Story()
-    this.map = map
-    this.currentLocation = map.getHome()
+    this.map = new Map()
+    this.currentLocation = this.map.getHome()
     
     this.player = new Player('Icocos')
     this.currentEnemy = {}
   }
 
   start() {
-    console.log(`
-      You are ${this.player.name}, TODO: add some back story.
-      
-      You begin in your home town, ${this.currentLocation.name}...
-    `)
+    this.console.log(`
+    You are ${this.player.name}.
+    You begin in your home town, ${this.currentLocation.name}...
+    `);
 
     this.running = true
+  }
 
-    while(this.running) {
-      let input = readlineSync.question('$: ')
-      if(input == 'q' || input == 'quit') {
-        this.running = false
+  handleEvent(input) {
+    if(input == 'q' || input == 'quit') {
+      this.running = false
+    }else {
+      if(this.isCombat) {
+        this.parseCombatInput(input)
       }else {
-        if(this.isCombat) {
-          this.parseCombatInput(input)
-        }else {
-          this.parseInput(input)
-        }
+        this.parseInput(input)
       }
     }
 
-    console.log('Game over.')
+    if(this.running === false) {
+      this.console.log('Game over.')
+    }
   }
 
   parseInput(i) {
     let input = i.split('')
 
     let inputMap = {
-      h: this.showHelp(),
-      l: this.getLocation(),
-      s: this.player.stats.bind(this.player),
-      m: this.map.showMap(this.currentLocation),
-      e: this.story.newEvent(this.currentLocation, this),
-      i: this.player.inventory.getItems(input),
-      t: this.move(input),
+      h: () => this.showHelp(),
+      l: () => this.getLocation(),
+      s: () => this.player.stats.bind(this.player)(),
+      m: () => this.map.showMap(this.currentLocation),
+      e: () => this.story.newEvent(this.currentLocation, this),
+      i: () => this.player.inventory.getItems(input),
+      t: () => this.move(input),
     }
 
     if(typeof inputMap[input[0]] == 'function') {
-      inputMap[input[0]]()
+      this.console.log(inputMap[input[0]]());
     }else {
-      console.log('Command not found.')
+      this.console.log('Command not found.')
     }
 
   }
   
   parseCombatInput(input) {
     let inputMap = {
-      h: this.showHelp(),
-      r: this.setCombat(false),
-      s: this.getCombatStats(),
-      a: this.player.attack(this.currentEnemy, this),
-      i: this.player.inventory.getItems(input),
+      h: () => this.showHelp(),
+      r: () => this.setCombat(false),
+      s: () => this.getCombatStats(),
+      a: () => this.player.attack(this.currentEnemy, this),
+      i: () => this.player.inventory.getItems(input),
     }
 
     if(typeof inputMap[input[0]] == 'function') {
-      inputMap[input[0]]()
+      this.console.log(inputMap[input[0]]());
     }else {
-      console.log('You are in combat, some commands will not work until you run away.')
+      this.console.log('You are in combat, some commands will not work until you run away.')
     }
   }
 
@@ -94,58 +95,51 @@ class Game {
         if(input[1] == 'w') { direction = 'west' }
       }
 
-      return () => {
-        let checker = {}
-        if(direction == 'north') checker = this.currentLocation.getNorth
-        if(direction == 'south') checker = this.currentLocation.getSouth
-        if(direction == 'east') checker = this.currentLocation.getEast
-        if(direction == 'west') checker = this.currentLocation.getWest
-        
-        if(typeof checker == 'function') {
-          if(checker() != null) {
-            this.currentLocation = checker()
-            console.log(`You move ${direction} to ${this.currentLocation.name}...`)
-          }else {
-            console.log(`There is nothing to the ${direction}.`)
-          }
+      let checker = {}
+      if(direction == 'north') checker = this.currentLocation.getNorth
+      if(direction == 'south') checker = this.currentLocation.getSouth
+      if(direction == 'east') checker = this.currentLocation.getEast
+      if(direction == 'west') checker = this.currentLocation.getWest
+      
+      if(typeof checker == 'function') {
+        if(checker() != null) {
+          this.currentLocation = checker()
+          return `You move ${direction} to ${this.currentLocation.name}...`
         }else {
-          console.log('Invalid direction!')
+          return `There is nothing to the ${direction}.`
         }
+      }else {
+        return 'Invalid direction!'
       }
     }
 
   }
 
   getLocation() {
-    return () => {
-      console.log(
-      `
-      ${this.currentLocation.name}
-      ${this.currentLocation.description}
-      `)
-    }
+    return `${this.currentLocation.name}
+    ${this.currentLocation.description}`
   }
 
   showHelp() {
-    return () => {
-      (!this.isCombat) ? console.log(Text.HELP_TEXT) : console.log(Text.COMBAT_HELP_TEXT)
+    if(!this.isCombat) {
+      return Text.HELP_TEXT
+    } else {
+      return Text.COMBAT_HELP_TEXT
     }
   }
 
   setCombat(isCombat) {
-    return () => {
-      this.isCombat = isCombat
-      if(this.isCombat == false) {
-        console.log('You ran away...')
-      }
+    this.isCombat = isCombat
+    if(this.isCombat == false) {
+      return 'You ran away...'
     }
   }
 
   getCombatStats() {
-    return () => {
-      this.currentEnemy.stats(),
-      this.player.stats()
-    }
+    return `
+    ${this.currentEnemy.stats()},
+    ${this.player.stats()}
+    `
   }
 
 }

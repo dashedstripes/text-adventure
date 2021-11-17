@@ -13,19 +13,24 @@ class Story {
   }
 
   newEvent(location, game) {
-    return () => {
-      // random chance of an combat or storyline
-      let chance = Math.floor(Math.random() * 100)
-      ;(chance > 60) ? this.combatEvent(game) : this.storyEvent(location, game)
+    // random chance of an combat or storyline
+    let chance = Math.floor(Math.random() * 100)
+    
+    if(chance > 60) {
+      return this.combatEvent(game)
+    } else {
+      return this.storyEvent(location, game)
     }
   }
 
   combatEvent(game) {
     let currentEnemy = this.enemies[Math.floor(Math.random() * (this.enemies.length))]
-    console.log('***** COMBAT MODE *****')
-    console.log(`A wild ${currentEnemy.name} attacks!`)
     game.currentEnemy = currentEnemy
     game.isCombat = true
+    return `
+    ***** COMBAT MODE *****
+    A wild ${currentEnemy.name} attacks!
+    `;
   }
 
   storyEvent(location, game) {
@@ -33,25 +38,27 @@ class Story {
     let chance = Math.floor(Math.random() * 100)
 
     if(chance > 60) {
-      this.itemEvent(location, game)
+      return this.itemEvent(location, game)
     }else {
       if(location.hasNPC) {
-        this.npc.event(location, game)
+        return this.npc.event(location, game)
       }else {
-        console.log(`You notice a traveller ahead of you in ${location.name} has dropped something, you decide to pick it up.`)
-        this.itemEvent(location, game)
+        return ```
+        You notice a traveller ahead of you in ${location.name} has dropped something, you decide to pick it up.
+        ${this.itemEvent(location, game)}
+        ```
       }
     }
+
   }
 
   itemEvent(location, game) {
     let items = [
       new Item('Health Tonic', { health: 10 })
     ]
-
     let chosenItem = items[Math.floor(Math.random() * items.length)]
-    console.log(`You found a ${chosenItem.name}`)
     game.player.inventory.addToInventory(chosenItem)
+    return `You found a ${chosenItem.name}`
   }
 }
 

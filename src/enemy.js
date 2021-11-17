@@ -3,6 +3,8 @@ let Character = require('./character')
 class Enemy extends Character {
 
   attack(player, game) {
+    let message = '';
+
     // attack the player
     let chanceOfHit = Math.floor(Math.random() * 3)
     if(chanceOfHit >= 1) {
@@ -10,18 +12,20 @@ class Enemy extends Character {
       player.health -= attackPower
 
       if(attackPower == 10) {
-        console.log(`${this.name} threw a critical hit!`)
+        message += `${this.name} threw a critical hit!`
       }
 
       if(player.health <= 0) {
-        console.log(`${player.name} died!`)
+        message += `${player.name} died!`
         game.isCombat = false
       }else {
-        console.log(`${this.name} hit ${player.name}, ${player.name} now has ${player.health} health points!`)
+        message += `${this.name} hit ${player.name}, ${player.name} now has ${player.health} health points!`
       }
     }else {
-      console.log(`${this.name} attack missed!`)
+      message += `${this.name} attack missed!`
     }
+
+    return message;
   }
 
 }

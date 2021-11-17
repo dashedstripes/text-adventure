@@ -12,13 +12,13 @@ class Character {
   }
   
   stats() {
-    console.log(`
+    return `
     ${this.name} stats
     ----------
     
     Health: ${this.health}
     Strength: ${this.strength}
-    `)
+    `
   }
 
 }
