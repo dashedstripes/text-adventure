@@ -46,7 +46,7 @@ class Game {
   }
 
   parseInput(i) {
-    let input = i.split('')
+    let input = i.toLowerCase().split('')
 
     let inputMap = {
       h: () => this.showHelp(),
@@ -67,6 +67,7 @@ class Game {
   }
   
   parseCombatInput(input) {
+    input = input.toLowerCase();
     let inputMap = {
       h: () => this.showHelp(),
       r: () => this.setCombat(false),
